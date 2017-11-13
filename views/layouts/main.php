@@ -1,3 +1,4 @@
+
 <?php
 
 /* @var $this \yii\web\View */
@@ -9,8 +10,14 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use kartik\dropdown\DropdownX;
-
+use yii\widgets\Menu;
+use yii\debug\toobar;
+use yii\helpers\ArrayHelper;
+use app\models\Product;
+use app\widgets\Template;
 AppAsset::register($this);
+
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -26,27 +33,55 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
+   <?php $this->beginBody() ?>
+
+<div class="wrap">
     <?php
-    NavBar::begin(['options' => ['class' => 'navbar-inverse navbar-fixed-top', ]]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-           //['label' => 'Barang', 'url' => ['/barang/index']],
-           //['label' => 'Cara Memperoleh', 'url' => ['/cara-perolehan/index']],
-           //['label' => 'Departemen', 'url' => ['/departemen/index']],
-          // ['label' => 'Inventaris', 'url' => ['/inventaris/index']],
-           //['label' => 'Jenis Barang', 'url' => ['/jenis-barang/index']],
-           //['label' => 'mengajukan', 'url' => ['/mengajukan/index']],
-           //['label' => 'pegawai', 'url' => ['/pegawai/index']],
-           //['label' => 'pinjam', 'url' => ['/pinjam/index']],
-           //['label' => 'ruang', 'url' => ['/ruang/index']],
-           //['label' => 'Sumber Dana', 'url' => ['/sumber-dana/index']],
-           //['label' => 'TM Barang', 'url' => ['/tm-barang/index']],
-           ['label' => 'Home', 'url' => ['/site/index']],
-           ['label' => 'About', 'url' => ['/site/about']],
-           ['label' => 'Contact', 'url' => ['/site/contact']],
-            Yii::$app->user->isGuest ? (
+    NavBar::begin([
+        'options'=> ['class'=> 'navbar-inverse navbar-fixed-top'],
+        ]);
+  echo Nav::widget([
+       'items' => [
+                
+        ['label' => 'Tambah Barang',
+            'items' => [
+                 ['label' => 'Barang', 'url' => ['/barang']],
+                  '<li class="divider"></li>',
+                 ['label' => 'Cara Perolehan', 'url' => ['/cara-perolehan']],
+                  '<li class="divider"></li>',
+                 ['label' => 'Jenis Barang', 'url' => ['/jenis-barang']],
+                 '<li class="divider"></li>',
+                  ['label' => 'Inventaris', 'url' => ['/inventaris']],
+                 '<li class="divider"></li>',
+                  ['label' => 'Sumber Dana', 'url' => ['/sumber-dana']],
+   
+            ],
+
+        ],
+        ['label' => 'Peminjaman',
+            'items' => [
+                 ['label' => 'Departemen', 'url' => ['/departemen']],
+                  '<li class="divider"></li>',
+                 ['label' => 'Ruang', 'url' => ['/ruang']],
+                  '<li class="divider"></li>',
+                 ['label' => 'Peminjaman', 'url' => ['/pinjam']],
+                 '<li class="divider"></li>',
+                 ['label' => 'Pegawai', 'url' => ['/pegawai']],
+            ],
+
+        ],
+         ['label' => 'Pengajuan Barang',
+            'items' => [
+                 ['label' => 'Mengajukan', 'url' => ['/mengajukan']],
+                  '<li class="divider"></li>',
+                 ['label' => 'TM Barang', 'url' => ['/tm-barang']],
+                 ],
+        ],
+          
+        Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
+                
+
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
@@ -57,53 +92,47 @@ AppAsset::register($this);
                 . Html::endForm()
                 . '</li>'
             )
-            ],
-       ]);
+ 
+    ],
+
+    'options' => ['class' =>'nav-pills navbar-left'], 
+   
+]);
+
+       
+            // NavBar::begin([
+    //     'brandLabel' => 'My Company',
+    //     'brandUrl' => Yii::$app->homeUrl,
+    //     'options' => [
+    //         'class' => 'navbar-inverse navbar-fixed-top',
+    //     ],
+    // ]);
+    // echo Nav::widget([
+    //        'options' => ['class' => 'navbar-nav navbar-right'],
+    //     'items' => [
+           
+         
+    //         ['label' => 'Home', 'url' => ['/site/index']],
+    //         ['label' => 'About', 'url' => ['/site/about']],
+    //         ['label' => 'Contact', 'url' => ['/site/contact']],
+    //         // Yii::$app->user->isGuest ? (
+    //         //     ['label' => 'Login', 'url' => ['/site/login']]
+    //         // ) : (
+    //         //     '<li>'
+    //         //     . Html::beginForm(['/site/logout'], 'post')
+    //         //     . Html::submitButton(
+    //         //         'Logout (' . Yii::$app->user->identity->username . ')',
+    //         //         ['class' => 'btn btn-link logout']
+    //         //     )
+    //         //     . Html::endForm()
+    //         //     . '</li>'
+    //         // )
+    //     ],
+    // ]);
     NavBar::end();
     ?>
-   
-    <div class="container">
-    <?php
-        echo ButtonDropdown::widget([
-            'label' => 'Action',
-            'dropdown'=> [
-            'items'=> [
-                        ['label'=>'DropdownA', 'url' => '/']
-                        ['label'=>'DropdownA', 'url' => '/']]
-                   ]
-                ]
-            );
-
-            // echo Html::beginTag('div', ['class'=>'dropdown']);
-        // echo Html::button('Dropdown Left <span class="caret"></span></button>', 
-        //     ['type'=>'button', 'class'=>'btn btn-default', 'data-toggle'=>'dropdown']);
-        // echo DropdownX::widget([
-        //     'items' => [
-        //         ['label' => 'Action', 'url' => '#'],
-        //         ['label' => 'Submenu 1', 'items' => [
-        //             ['label' => 'Action', 'url' => '#'],
-        //             ['label' => 'Another action', 'url' => '#'],
-        //             ['label' => 'Something else here', 'url' => '#'],
-        //             '<li class="divider"></li>',
-        //             ['label' => 'Submenu 2', 'items' => [
-        //                 ['label' => 'Action', 'url' => '#'],
-        //                 ['label' => 'Another action', 'url' => '#'],
-        //                 ['label' => 'Something else here', 'url' => '#'],
-        //                 '<li class="divider"></li>',
-        //                 ['label' => 'Separated link', 'url' => '#'],
-        //             ]],
-        //         ]],
-        //         ['label' => 'Something else here', 'url' => '#'],
-        //         '<li class="divider"></li>',
-        //         ['label' => 'Separated link', 'url' => '#'],
-        //     ],
-        // ]); 
-        // echo Html::endTag('div'); 
-
-    ?>
-   
-
-<?= Breadcrumbs::widget([
+   <div class="container">
+        <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
         <?= $content ?>

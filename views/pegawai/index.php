@@ -25,7 +25,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id_pegawai',
-            'depar.departemen',
+            [
+            'attribute'=>'id_depar',
+            'value'=>'depar.departemen'
+            ],
+
             'nama',
             'username',
             'password',

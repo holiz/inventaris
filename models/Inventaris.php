@@ -28,8 +28,8 @@ class Inventaris extends \yii\db\ActiveRecord
      */
     public function rules()
     {
-        return [
-                    ];
+        return  [[['nama'], 'string'],
+            [['foto'],'file']];
     }
 
     /**

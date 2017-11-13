@@ -25,9 +25,18 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id_departemen',
-            'depar.departemen',
-            'barang.nama',
-            'pegawai.nama',
+            [  
+                'attribute'=>'id_depar',
+                'value'=>'depar.departemen',
+            ],
+            [  
+                'attribute'=>'id_pegawai',
+                'value'=>'pegawai.nama',
+            ], 
+            [
+            'attribute'=>'id_barang',
+            'value'=>'barang.nama'
+            ],
             'approval',
             'tgl_approval',
             'jumlah_minta',

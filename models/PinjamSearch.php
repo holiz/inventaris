@@ -18,8 +18,8 @@ class PinjamSearch extends Pinjam
     public function rules()
     {
         return [
-            [['id_pinjam', 'id_pegawai', 'id_barang'], 'integer'],
-            [['tgl_pinjam', 'tgl_kembali', 'nama_peminjam', 'status'], 'safe'],
+            [['id_pinjam'], 'integer'],
+            [['id_pegawai', 'id_barang','tgl_pinjam', 'tgl_kembali', 'nama_peminjam', 'status'], 'safe'],
         ];
     }
 
@@ -57,18 +57,19 @@ class PinjamSearch extends Pinjam
             return $dataProvider;
         }
 
+        $query->joinWith('pegawai');
+        $query->joinWith('barang');
+
         // grid filtering conditions
         $query->andFilterWhere([
             'id_pinjam' => $this->id_pinjam,
-            'id_pegawai' => $this->id_pegawai,
-            'id_barang' => $this->id_barang,
             'tgl_pinjam' => $this->tgl_pinjam,
             'tgl_kembali' => $this->tgl_kembali,
         ]);
 
         $query->andFilterWhere(['like', 'nama_peminjam', $this->nama_peminjam])
-            ->andFilterWhere(['like', 'status', $this->status]);
-
+            ->andFilterWhere(['like', 'pegawai.nama', $this->id_pegawai])
+             ->andFilterWhere(['like', 'barang.nama', $this->id_barang]);
         return $dataProvider;
     }
 }

@@ -34,6 +34,10 @@ class Barang extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+
+    public $file;
+     
+
     public static function tableName()
     {
         return 'barang';
@@ -45,9 +49,10 @@ class Barang extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_jenis', 'id_sumberdana', 'id_depar', 'id_pegawai', 'id_cp', 'id_tm_barang', 'nama', 'harga', 'tgl_pembelian', 'tgl_expired'], 'required'],
+            [['id_sumberdana', 'id_depar', 'id_pegawai', 'id_cp', 'id_tm_barang', 'nama', 'harga', 'tgl_pembelian', 'tgl_expired'], 'required'],
             [['id_jenis', 'id_sumberdana', 'id_depar', 'id_pegawai', 'id_cp', 'id_tm_barang'], 'integer'],
-            [['nama', 'foto'], 'string'],
+            [['nama'], 'string'],
+            [['foto'],'file'],
             [['harga'], 'number'],
             [['tgl_pembelian', 'tgl_expired'], 'safe'],
             [['id_cp'], 'exist', 'skipOnError' => true, 'targetClass' => CaraPerolehan::className(), 'targetAttribute' => ['id_cp' => 'id_cp']],
@@ -66,11 +71,11 @@ class Barang extends \yii\db\ActiveRecord
     {
         return [
             'id_barang' => 'Id Barang',
-            'id_jenis' => 'Jenis',
+            'id_jenis' => 'Jenis Barang',
             'id_sumberdana' => 'Sumber Dana',
             'id_depar' => 'Departemen',
             'id_pegawai' => 'Pegawai',
-            'id_cp' => 'Cp',
+            'id_cp' => 'Cara Perolehan',
             'id_tm_barang' => 'Tm Barang',
             'nama' => 'Nama Barang',
             'harga' => 'Harga Barang',

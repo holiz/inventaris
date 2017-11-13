@@ -18,8 +18,8 @@ class PegawaiSearch extends Pegawai
     public function rules()
     {
         return [
-            [['id_pegawai', 'id_depar'], 'integer'],
-            [['nama', 'username', 'password', 'type'], 'safe'],
+            [['id_pegawai', ], 'integer'],
+            [['id_depar','nama', 'username', 'password', 'type'], 'safe'],
         ];
     }
 
@@ -57,13 +57,16 @@ class PegawaiSearch extends Pegawai
             return $dataProvider;
         }
 
+        $query->joinWith('depar');
+
         // grid filtering conditions
         $query->andFilterWhere([
             'id_pegawai' => $this->id_pegawai,
-            'id_depar' => $this->id_depar,
+            
         ]);
 
         $query->andFilterWhere(['like', 'nama', $this->nama])
+            ->andFilterWhere(['like', 'departemen.departemen', $this->id_depar])
             ->andFilterWhere(['like', 'username', $this->username])
             ->andFilterWhere(['like', 'password', $this->password])
             ->andFilterWhere(['like', 'type', $this->type]);

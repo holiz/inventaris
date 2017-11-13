@@ -50,12 +50,12 @@ class Pinjam extends \yii\db\ActiveRecord
     {
         return [
             'id_pinjam' => 'Id Pinjam',
-            'id_pegawai' => 'Id Pegawai',
-            'id_barang' => 'Id Barang',
+            'id_pegawai' => 'Nama Pegawai',
+            'id_barang' => 'Nama Barang',
             'tgl_pinjam' => 'Tgl Pinjam',
             'tgl_kembali' => 'Tgl Kembali',
             'nama_peminjam' => 'Nama Peminjam',
-            'status' => 'Status',
+            'status' => 'Status Peminjam',
         ];
     }
 

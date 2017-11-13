@@ -46,7 +46,7 @@ class Ruang extends \yii\db\ActiveRecord
     {
         return [
             'id_ruang' => 'Id Ruang',
-            'id_depar' => 'Id Depar',
+            'id_depar' => 'Departemen',
             'nama' => 'Nama',
             'penangungjawab' => 'Penangung Jawab',
             'noruang' => 'No Ruang',

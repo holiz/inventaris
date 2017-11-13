@@ -19,7 +19,7 @@ use kartik\file\FileInput
 
 <div class="barang-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'id_jenis')->dropDownList(ArrayHelper::map(JenisBarang::find()->all(),'id_jenis','jenis_barang')); ?> 
     <?= $form->field($model, 'id_sumberdana')->dropDownList(ArrayHelper::map(SumberDana::find()->all(),'id_sumberdana','sumber_dana')); ?> 
@@ -47,18 +47,16 @@ use kartik\file\FileInput
             'format' => 'yyyy-mm-dd'
         ]
     ]);?>
-    
-     <?= $form->field($model, 'foto')->widget(FileInput::classname(), [
+        
+    <?= $form->field($model, 'foto')->widget(FileInput::classname(), [
     'options' => ['accept'=>'image/*'],
     'pluginOptions'=>[
-        'allowedFileExtensions'=>['jpg', 'gif', 'png', 'bmp'],
         'showUpload' => true,
         'overwriteInitial' => false,
     ],
-]); ?>
+    ]); ?>
 
-
-       <div class="form-group">
+    <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 

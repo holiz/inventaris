@@ -25,8 +25,15 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id_pinjam',
-            'pegawai.nama',
-            'barang.nama',
+            [ 
+            'attribute'=>'id_pegawai',
+            'value'=>'pegawai.nama'
+            ],
+            [
+            'attribute'=>'id_barang',
+            'value'=>'barang.nama'
+            ],
+
             'tgl_pinjam',
             'tgl_kembali',
             'nama_peminjam',

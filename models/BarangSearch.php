@@ -18,8 +18,8 @@ class BarangSearch extends Barang
     public function rules()
     {
         return [
-            [['id_barang', 'id_jenis', 'id_sumberdana', 'id_depar', 'id_pegawai', 'id_cp', 'id_tm_barang'], 'integer'],
-            [['nama', 'tgl_pembelian', 'tgl_expired', 'foto'], 'safe'],
+            [['id_barang',], 'integer'],
+            [['nama', 'tgl_pembelian', 'tgl_expired', 'foto','id_jenis','id_sumberdana', 'id_depar', 'id_pegawai', 'id_cp', 'id_tm_barang'], 'safe'],
             [['harga'], 'number'],
         ];
     }
@@ -44,36 +44,50 @@ class BarangSearch extends Barang
     {
         $query = Barang::find();
 
+        //$query->joinWith(['jenis','sumberdana','pegawai']);
+
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
 
-        $this->load($params);
+           
 
-        if (!$this->validate()) {
+        if (!($this->load($params) && $this->validate())) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
         }
 
+        $query->joinWith('jenis');
+        $query->joinWith('pegawai');
+        $query->joinWith('depar');
+        $query->joinWith('sumberdana');
+        $query->joinWith('cp');
+        $query->joinWith('tmBarang');
+
+
         // grid filtering conditions
         $query->andFilterWhere([
             'id_barang' => $this->id_barang,
-            'id_jenis' => $this->id_jenis,
-            'id_sumberdana' => $this->id_sumberdana,
-            'id_depar' => $this->id_depar,
-            'id_pegawai' => $this->id_pegawai,
-            'id_cp' => $this->id_cp,
-            'id_tm_barang' => $this->id_tm_barang,
             'harga' => $this->harga,
             'tgl_pembelian' => $this->tgl_pembelian,
             'tgl_expired' => $this->tgl_expired,
         ]);
 
         $query->andFilterWhere(['like', 'nama', $this->nama])
-            ->andFilterWhere(['like', 'foto', $this->foto]);
+            ->andFilterWhere(['like', 'foto', $this->foto])
+            ->andFilterWhere(['like', 'jenis_barang.jenis_barang', $this->id_jenis])
+            ->andFilterWhere(['like', 'pegawai.nama', $this->id_pegawai])
+            ->andFilterWhere(['like', 'departemen.departemen', $this->id_depar])
+            ->andFilterWhere(['like', 'sumber_dana.sumber_dana', $this->id_sumberdana])
+            ->andFilterWhere(['like', 'cara_perolehan.cara_perolehan', $this->id_cp])
+            ->andFilterWhere(['like', 'tm_barang.nomor_barang', $this->id_tm_barang])
+
+
+            ;
+
 
         return $dataProvider;
     }

@@ -38,11 +38,20 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
+        'view' => [
+            'class' => 'yii\web\View',
+            'theme' => [
+              'class' => 'yii\base\Theme',
+              'pathMap' => ['@app/views' => 'theme'],
+              'baseUrl'   => 'themes/layouts'
+            ]
+        ]
+
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'rules' => [
+         
             ],
         ],
         */

@@ -18,8 +18,8 @@ class RuangSearch extends Ruang
     public function rules()
     {
         return [
-            [['id_ruang', 'id_depar'], 'integer'],
-            [['nama', 'penangungjawab'], 'safe'],
+            [['id_ruang',], 'integer'],
+            [['id_depar','nama', 'penangungjawab'], 'safe'],
             [['noruang'], 'number'],
         ];
     }
@@ -58,15 +58,17 @@ class RuangSearch extends Ruang
             return $dataProvider;
         }
 
+        $query->joinWith('depar');
+
         // grid filtering conditions
         $query->andFilterWhere([
             'id_ruang' => $this->id_ruang,
-            'id_depar' => $this->id_depar,
+          
             'noruang' => $this->noruang,
         ]);
 
         $query->andFilterWhere(['like', 'nama', $this->nama])
-            ->andFilterWhere(['like', 'penangungjawab', $this->penangungjawab]);
+            ->andFilterWhere(['like', 'departemen.departemen', $this->id_depar]);
 
         return $dataProvider;
     }

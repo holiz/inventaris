@@ -5,21 +5,23 @@
 $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
-
+<!--
     <div class="jumbotron">
-       <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
 
+        <h3> SELAT DATAG DI MENU ADMINISTRATOR SISTEM INVENTARIS BUKA PETA!</h3>
+
+     </div>
+-->
     <div class="body-content">
 
         <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-8">
                 <h2>Heading</h2>
 
-                <p>www</p>
+                   <p>...</p>
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-           
+                <p><a class="btn btn-default" href=".">Yii Extensions &raquo;</a></p>
+            </div>
         </div>
 
     </div>

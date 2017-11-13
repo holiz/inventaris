@@ -42,7 +42,7 @@ class TmBarang extends \yii\db\ActiveRecord
     {
         return [
             'id_tm_barang' => 'Id Tm Barang',
-            'id_jenis' => 'Id Jenis',
+            'id_jenis' => 'No Referensi',
             'nomor_barang' => 'Nama Barang',
             'barang_id_barang' => 'Barang Id Barang',
         ];

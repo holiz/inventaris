@@ -8,6 +8,7 @@ use app\models\BarangSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * BarangController implements the CRUD actions for Barang model.
@@ -65,8 +66,23 @@ class BarangController extends Controller
     {
         $model = new Barang();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_barang]);
+        if (Yii::$app->request->isPost) {
+            $model->foto = UploadedFile::getInstance($model, 'foto');
+            
+            if ($model->foto) {
+                $model->foto->saveAs(Yii::getAlias('@webroot').'/uploads/'. $model->foto->baseName . '.' . $model->foto->extension);
+                $path = $model->foto->baseName . '.' . $model->foto->extension;
+                $model->load(Yii::$app->request->post());
+                $model->foto = $path;
+            }else{
+                $model->load(Yii::$app->request->post());
+                $model->foto = 'no-foto.png';
+            }
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id_barang]);
+            }else{
+                print_r($model->getErrors());die();
+            };            
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -121,4 +137,23 @@ class BarangController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    // public function actionUpload($foto)
+    // {
+    //     $model = new Demo;
+    //     if (!empty($_POST)) {
+    //         $model->attachment = $_POST['Demo']['attachment'];
+    //         $file = \yii\web\UploadedFile::getInstanceByName($model, 'attachment');
+    //         var_dump($file);
+
+    //         // You can then do the following
+    //         if ($model->save()) {
+    //             $file->saveAs('uploads/' . $file->baseName . '.' . $file->extension);
+    //         }
+    //         // its better if you relegate such a code to your model class
+    //     }
+    //     return $this->render('upload', ['model'=>$model]);
+    // }
+
+
 }

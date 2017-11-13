@@ -51,7 +51,7 @@ class Mengajukan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_departemen' => 'Id Departemen',
+            'id_departemen' => 'Id Mengajukan',
             'id_depar' => 'Departemen',
             'id_barang' => 'Nama Barang',
             'id_pegawai' => 'Nama Pegawai',

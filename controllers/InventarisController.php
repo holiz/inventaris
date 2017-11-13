@@ -8,6 +8,7 @@ use app\models\InventarisSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * InventarisController implements the CRUD actions for Inventaris model.
@@ -65,8 +66,26 @@ class InventarisController extends Controller
     {
         $model = new Inventaris();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_inventaris]);
+        if (yii::$app->request->isPost){
+            $model->foto=UploadedFile::getInstance($model, 'foto');
+            if ($model->foto) {
+                $model->foto->saveAs(Yii::getAlias('@webroot').'/uploads/'. $model->foto->baseName . '.' . $model->foto->extension);
+                $path = $model->foto->baseName . '.' . $model->foto->extension;
+                $model->load(Yii::$app->request->post());
+                $model->foto = $path;
+            }else{
+                $model->load(Yii::$app->request->post());
+                $model->foto = 'no-foto.png';
+            }
+             if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id_inventaris]);
+            }else{
+                print_r($model->getErrors());die();
+            };            
+            
+
+        // if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        //     return $this->redirect(['view', 'id' => $model->id_inventaris]);
         } else {
             return $this->render('create', [
                 'model' => $model,

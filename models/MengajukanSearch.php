@@ -18,8 +18,8 @@ class MengajukanSearch extends Mengajukan
     public function rules()
     {
         return [
-            [['id_departemen', 'id_depar', 'id_barang', 'id_pegawai'], 'integer'],
-            [['approval', 'jumlah_minta'], 'number'],
+            [['id_departemen'], 'integer'],
+            [['id_depar', 'id_barang', 'id_pegawai','approval', 'jumlah_minta'], 'number'],
             [['tgl_approval'], 'safe'],
         ];
     }
@@ -58,16 +58,20 @@ class MengajukanSearch extends Mengajukan
             return $dataProvider;
         }
 
+        $query->joinWith('depar');
+        $query->joinWith('barang');
+        $query->joinWith('pegawai');
+
         // grid filtering conditions
         $query->andFilterWhere([
             'id_departemen' => $this->id_departemen,
-            'id_depar' => $this->id_depar,
-            'id_barang' => $this->id_barang,
-            'id_pegawai' => $this->id_pegawai,
             'approval' => $this->approval,
             'tgl_approval' => $this->tgl_approval,
             'jumlah_minta' => $this->jumlah_minta,
         ]);
+        $query->andFilterWhere(['like', 'pegawai.nama', $this->id_pegawai])
+          ->andFilterWhere(['like', 'departemen.departemen', $this->id_depar])
+            ->andFilterWhere(['like', 'barang.nama', $this->id_barang]);
 
         return $dataProvider;
     }
