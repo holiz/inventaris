@@ -7,14 +7,12 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\BarangSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Barangs';
+$this->title = 'Barang';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="barang-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+ 
     <p>
         <?= Html::a('Create Barang', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
@@ -22,9 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id_barang',
+            ['class' => 'yii\grid\SerialColumn'],'id_barang',
             [  
                 'attribute'=>'id_jenis',
                 'value'=>'jenis.jenis_barang',
@@ -54,7 +50,17 @@ $this->params['breadcrumbs'][] = $this->title;
             'harga',
             'tgl_pembelian',
             'tgl_expired',
-            'foto',
+           [
+           'attribute' => 'foto',
+           'value' => function($model)
+           {
+            return Html::img('uploads/barang/'.$model->foto,['width'=>'70px']);
+           },
+           'format'=>'html'
+
+           ],
+
+            
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

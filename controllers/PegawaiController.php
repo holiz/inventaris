@@ -3,11 +3,13 @@
 namespace app\controllers;
 
 use Yii;
+use yii\helpers\Url;
 use app\models\Pegawai;
 use app\models\PegawaiSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * PegawaiController implements the CRUD actions for Pegawai model.
@@ -65,8 +67,23 @@ class PegawaiController extends Controller
     {
         $model = new Pegawai();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_pegawai]);
+        if (Yii::$app->request->isPost) {
+            $model->foto = UploadedFile::getInstance($model, 'foto');
+            
+            if ($model->foto) {
+                $model->foto->saveAs(Yii::getAlias('@webroot').'/uploads/karyawan/'. $model->foto->baseName . '.' . $model->foto->extension);
+                $path = $model->foto->baseName . '.' . $model->foto->extension;
+                $model->load(Yii::$app->request->post());
+                $model->foto = $path;
+            }else{
+                $model->load(Yii::$app->request->post());
+                $model->foto = 'no-foto.png';
+            }
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id_pegawai]);
+            }else{
+                print_r($model->getErrors());die();
+            };            
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -101,6 +118,8 @@ class PegawaiController extends Controller
      */
     public function actionDelete($id)
     {
+        $model=$this->findModel($id);
+        unlink(Url::to('uploads/karyawan/'.$model->foto));
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

@@ -14,19 +14,12 @@ use yii\widgets\ActiveForm;
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
-    <?= $form->field($model, 'id') ?>
 
     <?= $form->field($model, 'username') ?>
 
     <?= $form->field($model, 'password') ?>
 
-    <?= $form->field($model, 'authKey') ?>
-
-    <?= $form->field($model, 'accessToken') ?>
-
-    <?= $form->field($model, 'role') ?>
-
-    <?php // echo $form->field($model, 'role') ?>
+    <?= $form->field($model, 'id') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

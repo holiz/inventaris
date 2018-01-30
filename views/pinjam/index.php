@@ -7,13 +7,11 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\PinjamSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pinjams';
+$this->title = 'Pinjam';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pinjam-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::a('Create Pinjam', ['create'], ['class' => 'btn btn-success']) ?>

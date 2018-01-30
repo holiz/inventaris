@@ -29,11 +29,19 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id_pegawai',
-            'id_depar',
+            'depar.departemen',
             'nama',
             'username',
             'password',
-            'type',
+            [
+                'attribute' => 'foto',
+                'value' =>function ($model)
+                {
+                    return Html::img('uploads/karyawan/'.$model->foto,['width'=>'200px']);
+                },
+                'format' => 'html'
+            ],
+
         ],
     ]) ?>
 

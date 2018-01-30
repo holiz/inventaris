@@ -51,7 +51,7 @@ class Barang extends \yii\db\ActiveRecord
         return [
             [['id_sumberdana', 'id_depar', 'id_pegawai', 'id_cp', 'id_tm_barang', 'nama', 'harga', 'tgl_pembelian', 'tgl_expired'], 'required'],
             [['id_jenis', 'id_sumberdana', 'id_depar', 'id_pegawai', 'id_cp', 'id_tm_barang'], 'integer'],
-            [['nama'], 'string'],
+            [['nama','foto'], 'string'],
             [['foto'],'file'],
             [['harga'], 'number'],
             [['tgl_pembelian', 'tgl_expired'], 'safe'],
@@ -70,15 +70,15 @@ class Barang extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_barang' => 'Id Barang',
+            'id_barang' => 'Id',
             'id_jenis' => 'Jenis Barang',
             'id_sumberdana' => 'Sumber Dana',
             'id_depar' => 'Departemen',
             'id_pegawai' => 'Pegawai',
-            'id_cp' => 'Cara Perolehan',
+            'id_cp' => 'Perolehan',
             'id_tm_barang' => 'Tm Barang',
-            'nama' => 'Nama Barang',
-            'harga' => 'Harga Barang',
+            'nama' => 'Nama',
+            'harga' => 'Harga',
             'tgl_pembelian' => 'Tgl Pembelian',
             'tgl_expired' => 'Tgl Expired',
             'foto' => 'Foto',

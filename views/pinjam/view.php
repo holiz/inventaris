@@ -29,8 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id_pinjam',
-            'id_pegawai',
-            'id_barang',
+            'pegawai.nama',
+            'barang.nama',
             'tgl_pinjam',
             'tgl_kembali',
             'nama_peminjam',

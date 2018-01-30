@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Inventaris */
 
-$this->title = $model->id_inventaris;
+$this->title = $model->nama;
 $this->params['breadcrumbs'][] = ['label' => 'Inventaris', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -30,10 +30,22 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id_inventaris',
             'nama',
-            'tgl_perolehan',
             'nilai_barang',
-            'foto',
+            'tgl_perolehan',
+            [
+            'attribute' => 'foto',
+            'value' => function ($model)
+            {
+                return Html::img('uploads/inventaris/'.$model->foto,['width'=>'300px']);
+            },
+            'format' => 'html'
+
+            ],
+           
+            
         ],
     ]) ?>
+    
+
 
 </div>

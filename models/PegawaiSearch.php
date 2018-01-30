@@ -19,7 +19,7 @@ class PegawaiSearch extends Pegawai
     {
         return [
             [['id_pegawai', ], 'integer'],
-            [['id_depar','nama', 'username', 'password', 'type'], 'safe'],
+            [['id_depar','nama', 'username', 'password', 'foto'], 'safe'],
         ];
     }
 
@@ -69,7 +69,7 @@ class PegawaiSearch extends Pegawai
             ->andFilterWhere(['like', 'departemen.departemen', $this->id_depar])
             ->andFilterWhere(['like', 'username', $this->username])
             ->andFilterWhere(['like', 'password', $this->password])
-            ->andFilterWhere(['like', 'type', $this->type]);
+            ->andFilterWhere(['like', 'foto', $this->foto]);
 
         return $dataProvider;
     }

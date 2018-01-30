@@ -12,7 +12,7 @@ use Yii;
  * @property string $nama
  * @property string $username
  * @property string $password
- * @property string $type
+ * @property string $foto
  *
  * @property Barang[] $barangs
  * @property Mengajukan[] $mengajukans
@@ -24,6 +24,9 @@ class Pegawai extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+
+  
+
     public static function tableName()
     {
         return 'pegawai';
@@ -35,9 +38,10 @@ class Pegawai extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_depar', 'nama', 'username', 'password', 'type'], 'required'],
+            [['id_depar', 'nama', 'username', 'password', 'foto'], 'required'],
             [['id_depar'], 'integer'],
-            [['nama', 'username', 'password', 'type'], 'string'],
+
+            [['nama', 'username', 'password', 'foto'], 'string'],
             [['id_depar'], 'exist', 'skipOnError' => true, 'targetClass' => Departemen::className(), 'targetAttribute' => ['id_depar' => 'id_depar']],
         ];
     }
@@ -53,7 +57,7 @@ class Pegawai extends \yii\db\ActiveRecord
             'nama' => 'Nama',
             'username' => 'Username',
             'password' => 'Password',
-            'type' => 'Type',
+            'foto' => 'Foto Pegawai',
         ];
     }
 

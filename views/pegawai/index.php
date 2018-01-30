@@ -7,13 +7,12 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\PegawaiSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pegawais';
+$this->title = 'Pegawai';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pegawai-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
 
     <p>
         <?= Html::a('Create Pegawai', ['create'], ['class' => 'btn btn-success']) ?>
@@ -33,7 +32,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'nama',
             'username',
             'password',
-            // 'type',
+           [
+                'attribute' => 'foto',
+                'value' =>function ($model)
+                {
+                    return Html::img('uploads/karyawan/'.$model->foto,['width'=>'200px']);
+                },
+                'format' => 'html'
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

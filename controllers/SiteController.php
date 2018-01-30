@@ -14,6 +14,13 @@ class SiteController extends Controller
     /**
      * @inheritdoc
      */
+   
+
+    public function actionHalaman()
+    {
+        return $this->render('halaman');
+    }
+
     public function behaviors()
     {
         return [
@@ -40,8 +47,34 @@ class SiteController extends Controller
     /**
      * @inheritdoc
      */
+
+     public function filters()
+    {
+        return array (
+                'AccessControl',
+            );
+    }
+    public function accessRules()
+    {
+        return array (
+            array('allow',
+                'actions'=>array('error','contact','Login','captcha'),
+                'user'=>array('*'),
+                ),
+            array('allow',
+                'actions'=>array('index','logout','update'),
+                'user'=>array ('@'),
+                ),
+
+            array('deny',// deny all users 'suers'=>array ('*'),
+                ),
+            );
+    }
     public function actions()
     {
+        
+
+
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',

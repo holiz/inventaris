@@ -8,10 +8,10 @@ use Yii;
  * This is the model class for table "inventaris".
  *
  * @property integer $id_inventaris
- * @property integer $nama
- * @property integer $tgl_perolehan
- * @property integer $nilai_barang
- * @property integer $foto
+ * @property string $nama
+ * @property string $nilai_barang
+ * @property string $foto
+ * @property string $tgl_perolehan
  */
 class Inventaris extends \yii\db\ActiveRecord
 {
@@ -28,8 +28,12 @@ class Inventaris extends \yii\db\ActiveRecord
      */
     public function rules()
     {
-        return  [[['nama'], 'string'],
-            [['foto'],'file']];
+        return [
+            [['tgl_perolehan','nama','foto'], 'required'],
+             [['nama'], 'string'],
+            [['foto'],'file'],
+            [['tgl_perolehan'],'safe'],
+        ];
     }
 
     /**
@@ -40,9 +44,9 @@ class Inventaris extends \yii\db\ActiveRecord
         return [
             'id_inventaris' => 'Id Inventaris',
             'nama' => 'Nama',
-            'tgl_perolehan' => 'Tgl Perolehan',
             'nilai_barang' => 'Nilai Barang',
             'foto' => 'Foto',
+            'tgl_perolehan' => 'Tgl Perolehan',
         ];
     }
 }

@@ -1,28 +1,73 @@
 <?php
+use yii\helpers\Html;
+use yii\widgets\LinkPager;
+use yii\grid\GridView;
+use yii\web\getAlias;
+$this->title = 'Belajar';
 
-/* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
 ?>
-<div class="site-index">
-<!--
-    <div class="jumbotron">
+<div>
 
-        <h3> SELAT DATAG DI MENU ADMINISTRATOR SISTEM INVENTARIS BUKA PETA!</h3>
+<style>
+#customers {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
 
-     </div>
--->
-    <div class="body-content">
+#customers td, #customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
 
-        <div class="row">
-            <div class="col-lg-8">
-                <h2>Heading</h2>
+#customers tr:nth-child(even){background-color: #f2f2f2;}
 
-                   <p>...</p>
+#customers tr:hover {background-color: #ddd;}
 
-                <p><a class="btn btn-default" href=".">Yii Extensions &raquo;</a></p>
-            </div>
-        </div>
+#customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
 
-    </div>
-</div>
+</style>
+<table id="customers"
+<tr>
+    <th>
+          <?php
+        $nim = '0987654321';
+        $nama = 'Nur Kholis';
+        $umur = '23' ;
+        $nilai ='80';
+        $status = true;
+
+
+        echo "NIM :" . $nim . "<br>"; 
+        echo "NAMA :" . $nama. "<br>";
+        print "Umur :" .$umur ."<br>";
+        printf("Nilai : %.2f<br>", $nilai);
+        if ($status) 
+            echo "Status : Aktif";
+        else
+            echo "Status: Tidak Aktif";
+        ?>
+
+    </th>
+    <th>
+        <?php
+        define('NAMA','Nur Kholis');
+        define('NILAI', '90');
+        echo 'Nama :' . NAMA;
+        echo ' <br>Nilai :' . NILAI;
+        ?>
+    </th>
+    <th>Pegawai</th>
+    <th>Ruang</th>
+</tr>
+</table>
+
+
+

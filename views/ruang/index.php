@@ -7,13 +7,11 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\RuangSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ruangs';
+$this->title = 'Ruang';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ruang-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::a('Create Ruang', ['create'], ['class' => 'btn btn-success']) ?>

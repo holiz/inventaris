@@ -84,7 +84,8 @@ class CaraPerolehanController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) 
+            && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id_cp]);
         } else {
             return $this->render('update', [
@@ -101,8 +102,11 @@ class CaraPerolehanController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        $model = $this->findModel($id);
+        if ($model->load(Yii::$app->reques->post())) {
+            # code...
+        }
+            
         return $this->redirect(['index']);
     }
 

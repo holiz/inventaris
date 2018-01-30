@@ -7,13 +7,11 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\MengajukanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Mengajukans';
+$this->title = 'Mengajukan';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mengajukan-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::a('Create Mengajukan', ['create'], ['class' => 'btn btn-success']) ?>

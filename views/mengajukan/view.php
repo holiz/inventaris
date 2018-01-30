@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Mengajukan */
 
 $this->title = $model->id_departemen;
-$this->params['breadcrumbs'][] = ['label' => 'Mengajukans', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Mengajukan', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mengajukan-view">
@@ -29,9 +29,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id_departemen',
-            'id_depar',
-            'id_barang',
-            'id_pegawai',
+            'depar.departemen',
+            'barang.nama',
+            'pegawai.nama',
             'approval',
             'tgl_approval',
             'jumlah_minta',

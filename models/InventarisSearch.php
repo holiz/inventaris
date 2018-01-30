@@ -18,7 +18,9 @@ class InventarisSearch extends Inventaris
     public function rules()
     {
         return [
-            [['id_inventaris', 'nama', 'tgl_perolehan', 'nilai_barang', 'foto'], 'integer'],
+            [['id_inventaris'], 'integer'],
+            [['nama', 'foto', 'tgl_perolehan'], 'safe'],
+            [['nilai_barang'], 'number'],
         ];
     }
 
@@ -59,11 +61,12 @@ class InventarisSearch extends Inventaris
         // grid filtering conditions
         $query->andFilterWhere([
             'id_inventaris' => $this->id_inventaris,
-            'nama' => $this->nama,
-            'tgl_perolehan' => $this->tgl_perolehan,
             'nilai_barang' => $this->nilai_barang,
-            'foto' => $this->foto,
+            'tgl_perolehan' => $this->tgl_perolehan,
         ]);
+
+        $query->andFilterWhere(['like', 'nama', $this->nama])
+            ->andFilterWhere(['like', 'foto', $this->foto]);
 
         return $dataProvider;
     }

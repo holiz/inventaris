@@ -7,13 +7,12 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\SumberDanaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Sumber Danas';
+$this->title = 'Sumber Dana';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="sumber-dana-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
 
     <p>
         <?= Html::a('Create Sumber Dana', ['create'], ['class' => 'btn btn-success']) ?>

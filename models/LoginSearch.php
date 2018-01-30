@@ -18,7 +18,7 @@ class LoginSearch extends Login
     public function rules()
     {
         return [
-            [['username', 'password', 'authKey', 'accessToken', 'role'], 'safe'],
+            [['username', 'password'], 'safe'],
             [['id'], 'integer'],
         ];
     }
@@ -63,10 +63,7 @@ class LoginSearch extends Login
         ]);
 
         $query->andFilterWhere(['like', 'username', $this->username])
-            ->andFilterWhere(['like', 'password', $this->password])
-            ->andFilterWhere(['like', 'authKey', $this->authKey])
-            ->andFilterWhere(['like', 'accessToken', $this->accessToken])
-            ->andFilterWhere(['like', 'role', $this->role]);
+            ->andFilterWhere(['like', 'password', $this->password]);
 
         return $dataProvider;
     }

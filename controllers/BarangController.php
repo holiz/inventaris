@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use Yii;
+use yii\helpers\Url;
 use app\models\Barang;
 use app\models\BarangSearch;
 use yii\web\Controller;
@@ -66,11 +67,13 @@ class BarangController extends Controller
     {
         $model = new Barang();
 
+
+
         if (Yii::$app->request->isPost) {
             $model->foto = UploadedFile::getInstance($model, 'foto');
             
             if ($model->foto) {
-                $model->foto->saveAs(Yii::getAlias('@webroot').'/uploads/'. $model->foto->baseName . '.' . $model->foto->extension);
+                $model->foto->saveAs(Yii::getAlias('@webroot').'/uploads/barang/'. $model->foto->baseName . '.' . $model->foto->extension);
                 $path = $model->foto->baseName . '.' . $model->foto->extension;
                 $model->load(Yii::$app->request->post());
                 $model->foto = $path;
@@ -90,12 +93,7 @@ class BarangController extends Controller
         }
     }
 
-    /**
-     * Updates an existing Barang model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
+   
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -117,8 +115,9 @@ class BarangController extends Controller
      */
     public function actionDelete($id)
     {
+        $model=$this->findModel($id);
+        unlink(Url::to('uploads/barang/' . $model->foto)); 
         $this->findModel($id)->delete();
-
         return $this->redirect(['index']);
     }
 
@@ -138,22 +137,6 @@ class BarangController extends Controller
         }
     }
 
-    // public function actionUpload($foto)
-    // {
-    //     $model = new Demo;
-    //     if (!empty($_POST)) {
-    //         $model->attachment = $_POST['Demo']['attachment'];
-    //         $file = \yii\web\UploadedFile::getInstanceByName($model, 'attachment');
-    //         var_dump($file);
-
-    //         // You can then do the following
-    //         if ($model->save()) {
-    //             $file->saveAs('uploads/' . $file->baseName . '.' . $file->extension);
-    //         }
-    //         // its better if you relegate such a code to your model class
-    //     }
-    //     return $this->render('upload', ['model'=>$model]);
-    // }
-
+   
 
 }
