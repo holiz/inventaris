@@ -3,18 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Inventaris;
-use app\models\InventarisSearch;
+use app\models\Content;
+use app\models\ContentSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\UploadedFile;
-use yii\helpers\Url;
 
 /**
- * InventarisController implements the CRUD actions for Inventaris model.
+ * ContentController implements the CRUD actions for Content model.
  */
-class InventarisController extends Controller
+class ContentController extends Controller
 {
     /**
      * @inheritdoc
@@ -32,12 +30,12 @@ class InventarisController extends Controller
     }
 
     /**
-     * Lists all Inventaris models.
+     * Lists all Content models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new InventarisSearch();
+        $searchModel = new ContentSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -47,7 +45,7 @@ class InventarisController extends Controller
     }
 
     /**
-     * Displays a single Inventaris model.
+     * Displays a single Content model.
      * @param integer $id
      * @return mixed
      */
@@ -59,22 +57,16 @@ class InventarisController extends Controller
     }
 
     /**
-     * Creates a new Inventaris model.
+     * Creates a new Content model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Inventaris();
+        $model = new Content();
 
-        if ($model->load(Yii::$app->request->post())) {
-            $image = UploadedFile::getInstance($model, 'foto');
-            $imgName = 'invt_'.str_replace(['.'], [''], microtime(true)) . '.'.$image->getExtension();
-            $model->foto = $imgName;
-            $model->save();
-            $image->saveAs(Yii::getAlias('@webroot').'/uploads/inventaris/'.$imgName);
-            return $this->redirect(['view','id' => $model->id_inventaris]);
-
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -83,7 +75,7 @@ class InventarisController extends Controller
     }
 
     /**
-     * Updates an existing Inventaris model.
+     * Updates an existing Content model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -91,61 +83,39 @@ class InventarisController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $model->load(yii::$app->request->post());
 
-        if (Yii::$app->request->isPost) {
-            $file = UploadedFile::getInstance($model, 'foto');
-            if (!empty($model)) {
-                $file = $model->name;
-            }
-        }
-        if ($model->validate()&& $model->save()) {
-            if (!empty($model)) {
-                $model->saveAs('uploads/inventaris/');
-
-            }
-           return $this->redirect(['view', 'id' => $model->id_inventaris]);
-        }
-
-
-        //if ($model->load(Yii::$app->request->post()) 
-          //  &&  $model->save()) {
-     
-        
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
             return $this->render('update', [
                 'model' => $model,
             ]);
-        
+        }
     }
 
     /**
-     * Deletes an existing Inventaris model.
+     * Deletes an existing Content model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
      */
     public function actionDelete($id)
-    
     {
-        $model=$this->findModel($id);
-        //print_r(Url::to('@webroot/uploads/inventaris/' . $model->foto));die();
-        try {
-            unlink(Url::to('@webroot/uploads/inventaris/' . $model->foto)); 
-        } catch (\Exception $exception){}
         $this->findModel($id)->delete();
+
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Inventaris model based on its primary key value.
+     * Finds the Content model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Inventaris the loaded model
+     * @return Content the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Inventaris::findOne($id)) !== null) {
+        if (($model = Content::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

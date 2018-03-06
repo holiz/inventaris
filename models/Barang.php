@@ -4,31 +4,6 @@ namespace app\models;
 
 use Yii;
 
-/**
- * This is the model class for table "barang".
- *
- * @property integer $id_barang
- * @property integer $id_jenis
- * @property integer $id_sumberdana
- * @property integer $id_depar
- * @property integer $id_pegawai
- * @property integer $id_cp
- * @property integer $id_tm_barang
- * @property string $nama
- * @property string $harga
- * @property string $tgl_pembelian
- * @property string $tgl_expired
- * @property string $foto
- *
- * @property CaraPerolehan $idCp
- * @property Departemen $idDepar
- * @property JenisBarang $idJenis
- * @property Pegawai $idPegawai
- * @property SumberDana $idSumberdana
- * @property TmBarang $idTmBarang
- * @property Mengajukan[] $mengajukans
- * @property Pinjam[] $pinjams
- */
 class Barang extends \yii\db\ActiveRecord
 {
     /**
